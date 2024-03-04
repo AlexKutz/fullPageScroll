@@ -1,0 +1,39 @@
+@import 'normalize.css';
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  height: 100%;
+}
+
+.card {
+  height: 450px;
+  background-color: #5d5454;
+  min-width: 500px;
+  flex: 1;
+}
+
+.pages-wrapper > section:first-child {
+  overflow: auto;
+  /*font-size: 40px;*/
+}
+
+.pages-wrapper > section:last-child {
+  gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
