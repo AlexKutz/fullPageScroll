@@ -1,3 +1,7 @@
+html, body {
+    overscroll-behavior: none;
+}
+
 .pages-slider {
     position: absolute;
     height: 100%;
@@ -34,4 +38,10 @@
     top: 50%;
     font-size: 60px;
     color: black;
+}
+
+@media screen and (max-width: 660px){
+    .controls {
+        display: none;
+    }
 }

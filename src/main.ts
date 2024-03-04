@@ -1,15 +1,7 @@
 import './style.css'
-import PagesSlider from "./pagesSlider";
+import initPageSlider from "./pagesSlider";
 
-let pagesSlider
-
-const wrapper = document.querySelector('.pages-slider')
-
-if (wrapper instanceof HTMLDivElement) {
-  pagesSlider = new PagesSlider(wrapper)
-} else {
-  throw new Error('Invalid argument in creating an instance of the PageSlider class')
-}
+const pagesSlider = initPageSlider('.pages-wrapper')
 
 // FIXME: DEV
 // @ts-ignore
