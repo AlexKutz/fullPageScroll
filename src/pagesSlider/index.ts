@@ -1,11 +1,11 @@
-import PagesSlider from "./class.ts";
+import PagesSlider from "./Slider.ts";
 import './style.css'
 
-export default function initPageSlider(wrapperSelector: string) {
-  const wrapper = document.querySelector(wrapperSelector)
-  if (wrapper instanceof HTMLDivElement) {
-    return new PagesSlider(wrapper)
-  } else {
-    throw new Error('Invalid arguments')
-  }
+function initPageSlider(wrapperSelector: string) {
+  let container = document.querySelector(wrapperSelector)
+  if (container instanceof HTMLDivElement) {
+    return new PagesSlider(container)
+  } else throw new Error('Invalid HTML')
 }
+
+export default initPageSlider
