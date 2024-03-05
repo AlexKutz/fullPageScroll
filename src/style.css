@@ -18,22 +18,3 @@
 html, body {
   height: 100%;
 }
-
-.card {
-  height: 450px;
-  background-color: #5d5454;
-  min-width: 500px;
-  flex: 1;
-}
-
-.pages-wrapper > section:first-child {
-  overflow: auto;
-  /*font-size: 40px;*/
-}
-
-.pages-wrapper > section:last-child {
-  gap: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: auto;
-}

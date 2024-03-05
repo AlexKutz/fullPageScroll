@@ -4,12 +4,12 @@ html, body {
 
 .pages-slider {
     position: absolute;
-    height: 100%;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
     overflow: hidden;
+    height: 100vh;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
 }
 
 .pages-wrapper {
@@ -19,29 +19,31 @@ html, body {
 
 .pages-wrapper > section {
     height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
 }
 
 .pages-wrapper > section:first-child {
     background-color: darkseagreen;
 }
 
+.pages-wrapper > section:nth-child(2) {
+    background-color: lightcoral;
+    gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .pages-wrapper > section:last-child {
     background-color: cadetblue;
-}
-
-.controls {
-    position: fixed;
-    right: 28px;
+    gap: 15px;
     display: flex;
-    line-height: 37px;
-    flex-direction: column;
-    top: 50%;
-    font-size: 60px;
-    color: black;
+    flex-wrap: wrap;
 }
 
-@media screen and (max-width: 660px){
-    .controls {
-        display: none;
-    }
+.card {
+    height: 450px;
+    background-color: #5d5454;
+    min-width: 500px;
+    flex: 1;
 }

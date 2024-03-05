@@ -1,50 +1,58 @@
-export default class PagesSlider {
+export interface IPageSlider {
+  wrapper: HTMLDivElement
+  pages: HTMLElement[]
+  currentPageIndex: number
+  setPage(index: number): void
+}
+
+export default class PagesSlider implements IPageSlider{
   readonly wrapper: HTMLDivElement
-  readonly pages!: HTMLElement[]
+  readonly pages: HTMLElement[]
   readonly #animationDuration: number = 400
   #frozen: boolean = false
-  #currentPageIndex: number = 0
+  currentPageIndex: number = 0
 
   constructor(wrapper: HTMLDivElement) {
     this.wrapper = wrapper
     this.pages = Array.from(this.wrapper.children) as HTMLDivElement[]
+    if (!this.pages) throw new Error('Pages must be in a pages-wrapper before initialization')
     this.pages.slice(1).forEach(page => page.style.visibility = 'hidden')
     this.#animationDuration = Number.parseFloat(getComputedStyle(this.wrapper).transitionDuration) * 1000
-    this.addListeners()
+    this.#addListeners()
   }
 
   setPage(index: number) {
-    let previousPage = this.#currentPageIndex
-    if (this.#frozen || index === this.#currentPageIndex ||
+    let previousPage = this.currentPageIndex
+    if (this.#frozen || index === this.currentPageIndex ||
       index > this.pages.length - 1 || index < 0) {
       return
     }
-    this.#currentPageIndex = index
+    this.currentPageIndex = index
     this.pages[index].style.visibility = 'visible'
     this.wrapper.style.transform = `translateY(-${index * 100}%)`
     this.#frozen = true
     setTimeout(
       () => {
-        this.setFocus(this.pages[this.#currentPageIndex])
+        this.#setFocus(this.pages[this.currentPageIndex])
         this.pages[previousPage].style.visibility = 'hidden'
         this.#frozen = false
       }, this.#animationDuration)
   }
 
-  nextPage = () => {
-    const page = this.pages[this.#currentPageIndex]
+  #nextPage = () => {
+    const page = this.pages[this.currentPageIndex]
     if (page.scrollTop > page.scrollHeight - page.clientHeight - 1) {
-      this.setPage(this.#currentPageIndex + 1)
+      this.setPage(this.currentPageIndex + 1)
     }
   }
 
-  previousPage = () => {
-    if (this.pages[this.#currentPageIndex].scrollTop < 1) {
-      this.setPage(this.#currentPageIndex - 1)
+  #previousPage = () => {
+    if (this.pages[this.currentPageIndex].scrollTop < 1) {
+      this.setPage(this.currentPageIndex - 1)
     }
   }
 
-  setFocus(page: HTMLElement) {
+  #setFocus(page: HTMLElement) {
     const focusable = getFirstFocusable(page)
     if (focusable !== null) {
       focusable.focus()
@@ -55,12 +63,12 @@ export default class PagesSlider {
     }
   }
 
-  addListeners() {
+  #addListeners() {
     addEventListener('wheel', (event) => {
       if (event.deltaY < 0) {
-        this.previousPage()
+        this.#previousPage()
       } else if (event.deltaY > 0) {
-        this.nextPage()
+        this.#nextPage()
       }
     })
 
@@ -74,9 +82,9 @@ export default class PagesSlider {
       let lastY = lastEvent.targetTouches[0].clientY
       console.log(currentY - lastY < -10)
       if (currentY - lastY > 15) {
-        this.previousPage()
+        this.#previousPage()
       } else if (currentY - lastY < -10) {
-        this.nextPage()
+        this.#nextPage()
       }
       lastEvent = event;
     })
@@ -87,12 +95,12 @@ export default class PagesSlider {
         case 'ArrowUp':
         case 'PageUp':
         case 'Home':
-          this.previousPage()
+          this.#previousPage()
           break
         case 'ArrowDown':
         case 'PageDown':
         case 'End':
-          this.nextPage()
+          this.#nextPage()
           break
       }
     })

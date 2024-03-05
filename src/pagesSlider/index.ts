@@ -8,4 +8,5 @@ function initPageSlider(wrapperSelector: string) {
   } else throw new Error('Invalid HTML')
 }
 
+export type { IPageSlider } from './Slider.ts'
 export default initPageSlider
