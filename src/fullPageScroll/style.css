@@ -1,0 +1,28 @@
+html, body {
+    overscroll-behavior: none;
+}
+
+.pages-slider {
+    position: absolute;
+    overflow: hidden;
+    height: 100vh;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+
+.pages-wrapper {
+    height: 100%;
+    transition: ease-out transform 400ms;
+}
+
+.pages-wrapper > section {
+    height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.pages-wrapper > section:focus {
+    outline: none;
+}

@@ -1,7 +1,10 @@
 import './style.css'
-import initPageSlider from "./pagesSlider";
+import initPageSlider from "./fullPageScroll";
 
 const slider = initPageSlider('.pages-wrapper')
+
+// slider.on('changePage', (args: {}) => {console.log(args)})
+// new Controls(slider)
 
 // FIXME: DEV
 // @ts-ignore

@@ -15,6 +15,29 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
-  height: 100%;
+.pages-wrapper > section:first-child {
+  background-color: darkseagreen;
+  font-size: 1.2rem;
+  padding: 50px;
+  overflow: hidden;
+}
+
+.pages-wrapper > section:first-child > span {
+  display: inline-block;
+  max-width: 900px;
+}
+
+.pages-wrapper > section:nth-child(2) {
+  padding: 40px 25px;
+  background-color: lightslategray;
+  gap: 22px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pages-wrapper > section > div {
+  height: 500px;
+  background-color: darkslategray;
+  width: 400px;
+  flex: 1 0 auto;
 }

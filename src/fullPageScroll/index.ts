@@ -1,12 +1,12 @@
-import PagesSlider from "./Slider.ts";
+import Slider from "./slider.ts";
 import './style.css'
 
 function initPageSlider(wrapperSelector: string) {
   let container = document.querySelector(wrapperSelector)
   if (container instanceof HTMLDivElement) {
-    return new PagesSlider(container)
+    return new Slider(container)
   } else throw new Error('Invalid HTML')
 }
 
-export type { IPageSlider } from './Slider.ts'
+export type { IPageSlider } from './interface.ts'
 export default initPageSlider

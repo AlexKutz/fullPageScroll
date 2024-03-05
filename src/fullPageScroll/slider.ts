@@ -1,11 +1,8 @@
-export interface IPageSlider {
-  wrapper: HTMLDivElement
-  pages: HTMLElement[]
-  currentPageIndex: number
-  setPage(index: number): void
-}
+import EventEmitter from './eventEmmiter.ts'
+import {IPageSlider} from './interface.ts'
 
-export default class PagesSlider implements IPageSlider{
+
+export default class FullPageScroll extends EventEmitter implements IPageSlider{
   readonly wrapper: HTMLDivElement
   readonly pages: HTMLElement[]
   readonly #animationDuration: number = 400
@@ -13,6 +10,7 @@ export default class PagesSlider implements IPageSlider{
   currentPageIndex: number = 0
 
   constructor(wrapper: HTMLDivElement) {
+    super()
     this.wrapper = wrapper
     this.pages = Array.from(this.wrapper.children) as HTMLDivElement[]
     if (!this.pages) throw new Error('Pages must be in a pages-wrapper before initialization')
@@ -22,15 +20,16 @@ export default class PagesSlider implements IPageSlider{
   }
 
   setPage(index: number) {
-    let previousPage = this.currentPageIndex
     if (this.#frozen || index === this.currentPageIndex ||
       index > this.pages.length - 1 || index < 0) {
       return
     }
+    let previousPage = this.currentPageIndex
     this.currentPageIndex = index
     this.pages[index].style.visibility = 'visible'
     this.wrapper.style.transform = `translateY(-${index * 100}%)`
     this.#frozen = true
+    this.emit('changePage', {nextPage: index, previousPage})
     setTimeout(
       () => {
         this.#setFocus(this.pages[this.currentPageIndex])
@@ -55,7 +54,7 @@ export default class PagesSlider implements IPageSlider{
   #setFocus(page: HTMLElement) {
     const focusable = getFirstFocusable(page)
     if (focusable !== null) {
-      focusable.focus()
+      focusable.focus({preventScroll: true})
       return
     } else {
       page.tabIndex = 0
